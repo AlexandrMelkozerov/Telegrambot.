@@ -38,7 +38,7 @@ public class newsbot extends TelegramLongPollingBot {
 
             if (query.equals("/start")) {
                 MyMessageSender sender = new MyMessageSender(this);
-                sender.sendTextMessage(chatId, "Привет! Я бот для новостей, выбери тему:");
+                sender.sendTextMessage(chatId, "Привет! Я бот для новостей:");
                 sendTopicsKeyboard(chatId);
             } else if (query.equals("/next") && currentPage * pageSize < articles.size()) {
                 currentPage++;
@@ -59,7 +59,7 @@ public class newsbot extends TelegramLongPollingBot {
             String data = query.getData();
             String chatId = query.getMessage().getChatId().toString();
 
-            if (data.equals("sport") || data.equals("politics") || data.equals("economy") || data.equals("local_news")) {
+            if (data.equals("sport") || data.equals("politics") || data.equals("economy") || data.equals("SVO")) {
                 articles = getNewsArticles(data);
                 currentPage = 1;
                 MyMessageSender sender = new MyMessageSender(this);
@@ -113,7 +113,7 @@ public class newsbot extends TelegramLongPollingBot {
 
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
-        message.setText("Выбери тему:");
+        message.setText("Выбери тему или напиши любую тему:");
         message.setReplyMarkup(keyboardMarkup);
         try {
             execute(message);
